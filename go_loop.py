@@ -40,16 +40,16 @@ def loopStateGen(af, keys, data, duration):
 
 def angleDiff(a,b):
     pi2 = math.pi * 2
-    print a
-    print b
+    #print a
+    #print b
     a = a % pi2
     b = b % pi2
     d = a - b
-    print a,b
+    #print a,b
     if (d < 0):
         d += pi2
     if (d > math.pi):
-        print pi2, d
+        #print pi2, d
         d = pi2 - d
     return d
 
@@ -99,8 +99,11 @@ def rotateFindTape( af,
                     pass # if
                 time.sleep(check_duration)
                 pass # while
+            if(track_found):
+                break
             pass # for
 
+        af.speed_control( 0, 0 )
         af.switch_auto()
         pass # if not 
     else:
@@ -128,6 +131,9 @@ if __name__ == '__main__':
 
     while(True):
         af.goFixed('32')
-        rotateFindTape(af)
+        mag_found = rotateFindTape(af)
+        if(not mag_found):
+            print "[ ERROR ] Mag tape not found"
+            break
         af.goMag(8)
         #time.sleep(1)
