@@ -37,6 +37,10 @@ class api_function(object):
         self.control_client.call(change_mode_auto)
         return
 
+    def switch_manual(self):
+        self.control_client.call(change_mode_manual)
+        return
+
     def goFree(self,x,y,angle):
         state__ = "IDLE"
         #print(self.task_client.call(cancel_task))
@@ -63,6 +67,14 @@ class api_function(object):
             print(self.task_client.call(cancel_task))        
 
         return
+
+    def getState(self, key=""):
+        res__ =  self.state_client.call(get_state)
+        data = json.loads(res__)['data']
+        if(not key):
+            return data
+        else:
+            return data[key]
 
 
     def goMag(self,rfid):
@@ -277,3 +289,10 @@ class api_function(object):
     def dynamic_obstacle_del(self, name):
         print self.control_client.call(del_dynamic_obstacle(name))
         return
+
+    def speed_control(self, v, w):
+        __cmd = robot_motion(v,0,w)
+        __res = self.control_client.call(__cmd)
+        print __cmd
+        print __res
+    
