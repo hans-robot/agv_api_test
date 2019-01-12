@@ -1,9 +1,20 @@
-star_agv_play_sound = lambda i:'''
+def star_agv_play_sound(index, id=100):
+    return '''
 { 
-    "method":  "StarAgvPlaySound", 
-    "id": "101",
-    "params":  {  
+    "method": "StarAgvPlaySound", 
+    "id": "%d",
+    "params": {  
         "index":%d
     }  
 }
-'''%i
+'''%(id,index)
+
+def star_agv_get_state(id=100): 
+    return '''
+{ 
+    "method": "StarAgvGetState", 
+    "id": "%d",
+    "params": {  
+    }  
+} 
+'''%(id)
